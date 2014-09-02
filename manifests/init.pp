@@ -19,7 +19,7 @@ class iptables inherits arc_general_services {
 #                    require => [ package[iptables], exec[update-narnia] ]
 #            }
 	file { '/etc/iptables':
-		source => 'puppet:///files/etc/iptables',
+		source => 'puppet:///modules/iptables',
 		ensure  => present,
 		recurse => true,
 		purge => true,
@@ -73,7 +73,7 @@ define iptables::enable-iptables () {
 
 	file { $script:
 		ensure  => file,
-		source  =>  "puppet:///files/etc/iptables/config-available/4/${title}.sh",
+		source  =>  "puppet:///modules/iptables/config-available/4/${title}.sh",
 		mode => 755,
 		require => File["/etc/iptables"],
 		notify  => [
@@ -94,7 +94,7 @@ define enable-ip6tables () {
 
 	file { $script:
 		ensure  => file,
-		source  =>  "puppet:///files/etc/iptables/config-available/6/${title}.sh",
+		source  =>  "puppet:///modules/iptables/config-available/6/${title}.sh",
 		mode => 755,
 		require => File["/etc/iptables"],
 		notify  => [
