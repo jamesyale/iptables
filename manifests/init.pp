@@ -1,5 +1,6 @@
-class iptables inherits arc_general_services {
+class iptables {
 
+# Required if you don't do this elsewhere
 #            package { iptables:
 #                    ensure  => installed,
 #            }
@@ -18,6 +19,7 @@ class iptables inherits arc_general_services {
 #                    source  => "/narnia/tools/initiptables.sh",
 #                    require => [ package[iptables], exec[update-narnia] ]
 #            }
+
 	file { '/etc/iptables':
 		source => 'puppet:///modules/iptables',
 		ensure  => present,
@@ -30,7 +32,6 @@ class iptables inherits arc_general_services {
 	}
 
 	exec { "/etc/iptables/initiptables.sh":
-		#subscribe      => file["/etc/iptables/config-available"],
 		subscribe      => file["/etc/iptables"],
 		refreshonly     => true,
 		require         => [ 
